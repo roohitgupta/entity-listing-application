@@ -24,10 +24,14 @@ const Home = () => {
   }
 
   
-  const sortByName = ()=> {
-    let res =  users.sort((a, b) => a.name.localeCompare(b.name))
-    console.log(res)
+  const sortAsc = ()=> {
+    let res =  users.sort((a, b) => a.name.localeCompare(b.name))  
     setUsers([...res]);
+}
+
+  const sortDec = ()=> {
+    let res =  users.sort((a, b) => a.name.localeCompare(b.name))
+    setUsers([...res.reverse()]);
 }
 
 const Container = styled.div`
@@ -46,7 +50,9 @@ const Button = styled.button`
   return (
     <Container>
         
-    <Button onClick={()=> sortByName()} >Sort By Name</Button>
+
+    <Button onClick={()=> sortAsc()} >Sort Ascending</Button>
+    <Button onClick={()=> sortDec()} >Sort Decending</Button>
 
 
       <table className="table">
