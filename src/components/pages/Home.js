@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import styled  from "styled-components";
 
 const Home = () => {
-  const [user, setUser] = useState([]);
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
     loadUsers();
@@ -13,7 +13,7 @@ const Home = () => {
 
   const loadUsers = async () => {
     const res = await axios.get("http://localhost:3003/users");
-    setUser(res.data.reverse());
+    setUsers(res.data.reverse());
   };
 
 
@@ -22,25 +22,44 @@ const Home = () => {
     alert(`Are You Sure!!`);
     loadUsers();
   }
+
+  
+  const sortByName = ()=> {
+    let res =  users.sort((a, b) => a.name.localeCompare(b.name))
+    console.log(res)
+    setUsers([...res]);
+}
+
 const Container = styled.div`
     width:70%;
     margin: auto;
 `
+const Button = styled.button`
+    padding: 6px 15px;
+    background-color: darkgrey;
+    color: black;
+    font-size: 18px;
+    font-weight: 600;
+`
+
 
   return (
     <Container>
- 
+        
+    <Button onClick={()=> sortByName()} >Sort By Name</Button>
+
+
       <table className="table">
         <thead className="thead-dark">
           <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
+            <th scope="col">No.</th>
+            <th scope="col">name</th>
+            <th scope="col">username</th>
+            <th scope="col">Email</th>
           </tr>
         </thead>
         <tbody>
-          {user.map((user, index) => (
+          {users.map((user, index) => (
             <tr>
               <th scope="row">{index + 1}</th>
               <td>{user.name}</td>
